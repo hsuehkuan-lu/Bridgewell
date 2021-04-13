@@ -1,0 +1,46 @@
+aniso8601==7.0.0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///opt/concourse/worker/volumes/live/0ef369cc-6ba0-47e7-75da-208c6400381d/volume/cffi_1613246948181/work
+chardet @ file:///opt/concourse/worker/volumes/live/c798b2ee-88b1-4341-6830-161a92c2399e/volume/chardet_1607706832595/work
+click @ file:///home/linux1/recipes/ci/click_1610990599742/work
+cryptography @ file:///opt/concourse/worker/volumes/live/c515855a-effc-46df-74dc-542901b701da/volume/cryptography_1616769282442/work
+fastapi==0.61.2
+Flask @ file:///home/ktietz/src/ci/flask_1611932660458/work
+Flask-GraphQL==2.0.1
+Flask-Inputs==0.3.0
+Flask-JSON==0.3.4
+Flask-SQLAlchemy==2.5.1
+Flask-WTF==0.14.3
+future==0.18.2
+graphene==2.1.8
+graphene-sqlalchemy==2.3.0
+graphql-core==2.3.2
+graphql-relay==2.0.1
+graphql-server-core==1.2.0
+greenlet==1.0.0
+h11==0.11.0
+idna @ file:///home/linux1/recipes/ci/idna_1610986105248/work
+itsdangerous @ file:///home/ktietz/src/ci/itsdangerous_1611932585308/work
+Jinja2 @ file:///tmp/build/80754af9/jinja2_1612213139570/work
+MarkupSafe @ file:///opt/concourse/worker/volumes/live/cb778296-98db-45ad-411e-6f726e102dc3/volume/markupsafe_1594371638608/work
+mysql==0.0.2
+mysql-connector==2.2.9
+mysql-connector-python-rf==2.2.2
+mysqlclient==2.0.3
+promise==2.3
+pycparser @ file:///tmp/build/80754af9/pycparser_1594388511720/work
+pydantic==1.7.2
+PyMySQL==1.0.2
+pyOpenSSL @ file:///tmp/build/80754af9/pyopenssl_1608057966937/work
+PySocks @ file:///opt/concourse/worker/volumes/live/85a5b906-0e08-41d9-6f59-084cee4e9492/volume/pysocks_1594394636991/work
+requests @ file:///tmp/build/80754af9/requests_1608241421344/work
+Rx==1.6.1
+singledispatch==3.6.1
+six @ file:///opt/concourse/worker/volumes/live/5b31cb27-1e37-4ca5-6e9f-86246eb206d2/volume/six_1605205320872/work
+SQLAlchemy==1.4.6
+starlette==0.13.6
+urllib3 @ file:///tmp/build/80754af9/urllib3_1615837158687/work
+uvicorn==0.12.3
+Werkzeug @ file:///home/ktietz/src/ci/werkzeug_1611932622770/work
+WTForms==2.3.3
