@@ -64,7 +64,6 @@ class DeleteAds(graphene.Mutation):
     @staticmethod
     def mutate(parent, info, **kwargs):
         try:
-            print(type(Ad.query))
             Ad.query.delete()
             SCOPED_SESSION.commit()
         except Exception as e:
