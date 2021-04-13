@@ -1,10 +1,11 @@
-from app import app
-from flask import request, jsonify, abort
+from flask import request, jsonify, abort, Blueprint
 from api.models.dsp import Ad
-from api import db
+from database import db
 import random
 
 BATCH_SIZE = 1000
+
+dsp_app = Blueprint('dsp_app', __name__)
 
 
 def orm_select_ad(bid_floor):
@@ -68,7 +69,7 @@ def delete_ads():
     db.session.commit()
 
 
-@app.route('/bw_dsp', methods=['POST'])
+@dsp_app.route('/bw_dsp', methods=['POST'])
 def bw_dsp():
     bid_floor = request.values.get('bid_floor')
     if bid_floor is None or not bid_floor.isdigit():
@@ -76,7 +77,7 @@ def bw_dsp():
     return orm_select_ad(bid_floor)
 
 
-@app.route('/add_ad_data', methods=['POST'])
+@dsp_app.route('/add_ad_data', methods=['POST'])
 def add_ad_data():
     data_num = request.values.get('data_num', 10)
     try:
@@ -86,7 +87,7 @@ def add_ad_data():
     return jsonify(success=True)
 
 
-@app.route('/delete_ad_data', methods=['POST'])
+@dsp_app.route('/delete_ad_data', methods=['POST'])
 def delete_ad_data():
     try:
         delete_ads()
@@ -95,6 +96,6 @@ def delete_ad_data():
     return jsonify(success=True)
 
 
-@app.route('/test')
+@dsp_app.route('/test')
 def test():
     return jsonify({'test': [1, 2, 3]})

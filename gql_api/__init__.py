@@ -9,8 +9,11 @@ class Query(
     pass
 
 
-class Mutation(graphene.ObjectType):
+class Mutation(
+    dsp.Mutation,
+    graphene.ObjectType
+):
     pass
 
 
-SCHEMA = graphene.Schema(query=Query)
+SCHEMA = graphene.Schema(query=Query, mutation=Mutation)

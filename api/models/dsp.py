@@ -1,7 +1,8 @@
-from api import db
+from database import db, Base
+from sqlalchemy import *
 
 
-class Ad(db.Model):
+class Ad(Base):
     __tablename__ = 'ad'
     """
     | Column name  | Type |               Comment              |
@@ -10,9 +11,9 @@ class Ad(db.Model):
     | status       | bool | Bidding switch                     |
     | bidding_cpm  | int  | Cost per 1000 impression           |
     """
-    ad_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    status = db.Column(db.Boolean, nullable=False)
-    bidding_cpm = db.Column(db.Integer, nullable=False)
+    ad_id = Column(Integer, primary_key=True, autoincrement=True)
+    status = Column(Boolean, nullable=False)
+    bidding_cpm = Column(Integer, nullable=False)
 
     def __repr__(self):
         return f"<Ad(id={self.ad_id})> status={self.status} bidding_cpm={self.bidding_cpm}"
