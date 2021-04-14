@@ -1,12 +1,14 @@
 import requests
 import random
 import timeit
+from config import Config
+API_HOST = Config.API_URL
 
 
 def dsp_request():
     data = {'bid_floor': random.randint(1, 200)}
-    # print(data)
-    r = requests.post('http://127.0.0.1:5000/bw_dsp', data=data)
+    print(data)
+    r = requests.post(f'{API_HOST}/bw_dsp', data=data)
     print(r)
     print(r.status_code)
     if r.status_code == 200:
@@ -14,14 +16,14 @@ def dsp_request():
 
 
 def add_ad_request():
-    r = requests.post('http://127.0.0.1:5000/add_ad_data')
+    r = requests.post(f'{API_HOST}/add_ad_data')
     print(r)
     print(r.reason)
     print(r.text)
 
 
 def delete_ad_request():
-    print(requests.post('http://127.0.0.1:5000/delete_ad_data'))
+    print(requests.post(f'{API_HOST}/delete_ad_data'))
 
 
 def timeit_dsp_request():
@@ -29,6 +31,6 @@ def timeit_dsp_request():
 
 
 # timeit_dsp_request()
-# dsp_request()
+dsp_request()
 # delete_ad_request()
-add_ad_request()
+# add_ad_request()
