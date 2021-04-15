@@ -2,11 +2,11 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
-from config import Config
+from config import DATABASE_URI
 
 #       --- DATABASE ---
 engine = create_engine(
-    Config.DATABASE_URI
+    DATABASE_URI
 )
 connection = engine.connect()
 SESSION = sessionmaker(autocommit=False, autoflush=False, bind=engine)
