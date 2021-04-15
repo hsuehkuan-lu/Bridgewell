@@ -1,8 +1,11 @@
+import timeit
+import requests
 import random
 import graphene
 from graphql import GraphQLError
 from api.models.dsp import Ad
 from database import SCOPED_SESSION
+from config import API_URL
 
 BATCH_SIZE = 1000
 
@@ -14,6 +17,7 @@ class AdBid(graphene.ObjectType):
 
 class Query(graphene.ObjectType):
     bw_dsp = graphene.Field(AdBid, bid_floor=graphene.Int(required=True))
+    timeit_dsp = graphene.Float(num_test=graphene.Int(required=True))
 
     @staticmethod
     def resolve_bw_dsp(parent, info, bid_floor, **kwargs):
@@ -31,6 +35,13 @@ class Query(graphene.ObjectType):
             'price': bid_price,
             'ad_id': target_ad.ad_id
         }
+
+    @staticmethod
+    def resolve_timeit_dsp(parent, info, num_test, **kwargs):
+        def func():
+            data = {'bid_floor': random.randint(1, 50)}
+            r = requests.post(f'{API_URL}/bw_dsp', data=data)
+        return timeit.timeit(lambda: func(), number=num_test)
 
 
 class AddAds(graphene.Mutation):
