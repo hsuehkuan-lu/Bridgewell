@@ -1,8 +1,7 @@
 from flask import Flask
 from flask_graphql import GraphQLView
 from database import db, SCOPED_SESSION
-from api.models import dsp
-from api.views import dsp
+from api.views import dsp as dsp_views
 from config import DATABASE_URI
 
 
@@ -11,11 +10,12 @@ def create_app():
     app.debug = True
 
     app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
-    app.register_blueprint(dsp.dsp_app)
+    app.register_blueprint(dsp_views.dsp_app)
     db.init_app(app)
 
-    with app.app_context():
-        db.create_all()
+    # with app.app_context():
+    #     # from api.models import dsp as dsp_model
+    #     Base.metadata.create_all()
     return app
 
 

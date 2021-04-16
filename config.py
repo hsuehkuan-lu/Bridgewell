@@ -1,4 +1,5 @@
 import os
+TESTING_DATABASE_URI = 'sqlite:///test.db'
 DATABASE_URI = 'sqlite:///dsp_rtb.db'
 API_URL = 'http://hsuehkuanlu.ddns.net'
 basedir = os.path.abspath(os.path.dirname(__file__))

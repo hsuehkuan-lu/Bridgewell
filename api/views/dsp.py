@@ -8,29 +8,6 @@ BATCH_SIZE = 1000
 dsp_app = Blueprint('dsp_app', __name__)
 
 
-def test_ad():
-    q = Ad.query.filter(Ad.status)
-    bid_price = 0
-    ads = []
-    target_ad = None
-    for ad in q.yield_per(BATCH_SIZE):
-        price = ad.bidding_cpm * random.randint(1, 10)
-        ads += [{
-            'ad_id': ad.ad_id,
-            'price': price
-        }]
-        if price > bid_price:
-            bid_price = price
-            target_ad = ad
-    if target_ad is None:
-        return {}, 204
-    assert max(ads, key=lambda x: x['price'])['ad_id'] == target_ad.ad_id, "Ad is mismatch."
-    return jsonify({
-        'price': bid_price,
-        'ad_id': target_ad.ad_id
-    })
-
-
 def orm_select_ad(bid_floor):
     bid_floor = int(bid_floor)
     q = Ad.query.filter(Ad.status)
@@ -90,11 +67,6 @@ def add_ads(data_num):
 def delete_ads():
     Ad.query.delete()
     db.session.commit()
-
-
-@dsp_app.route('/test_dsp', methods=['POST'])
-def test_bw_dsp():
-    return test_ad()
 
 
 @dsp_app.route('/bw_dsp', methods=['POST'])
