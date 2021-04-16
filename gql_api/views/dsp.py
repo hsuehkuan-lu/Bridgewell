@@ -78,13 +78,18 @@ class SetAds(graphene.Mutation):
             Ad.query.delete()
             SCOPED_SESSION.commit()
             ads = []
-            for _ in range(data_num):
+            for i in range(1, data_num+1):
                 ads += [Ad(
                     status=bool(random.getrandbits(1)),
                     bidding_cpm=random.randint(0, 10)
                 )]
-            SCOPED_SESSION.add_all(ads)
-            SCOPED_SESSION.commit()
+                if i % BATCH_SIZE == 0:
+                    SCOPED_SESSION.add_all(ads)
+                    SCOPED_SESSION.commit()
+                    ads = []
+            if ads:
+                SCOPED_SESSION.add_all(ads)
+                SCOPED_SESSION.commit()
         except Exception as e:
             raise GraphQLError('500')
         return AddAds(ok=True)
