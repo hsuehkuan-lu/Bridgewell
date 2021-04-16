@@ -26,7 +26,8 @@ def delete_ad_request():
 
 
 def timeit_dsp_request():
-    print(timeit.timeit(lambda: dsp_request(), number=1000))
+    t = timeit.timeit(lambda: dsp_request(), number=1000)
+    print(f"Cost time: {t}")
 
 
 timeit_dsp_request()
