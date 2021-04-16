@@ -66,6 +66,30 @@ class AddAds(graphene.Mutation):
         return AddAds(ok=True)
 
 
+class SetAds(graphene.Mutation):
+    class Arguments:
+        data_num = graphene.Int(default_value=10)
+
+    ok = graphene.Boolean(required=True)
+
+    @staticmethod
+    def mutate(parent, info, data_num, **kwargs):
+        try:
+            Ad.query.delete()
+            SCOPED_SESSION.commit()
+            ads = []
+            for _ in range(data_num):
+                ads += [Ad(
+                    status=bool(random.getrandbits(1)),
+                    bidding_cpm=random.randint(0, 10)
+                )]
+            SCOPED_SESSION.add_all(ads)
+            SCOPED_SESSION.commit()
+        except Exception as e:
+            raise GraphQLError('500')
+        return AddAds(ok=True)
+
+
 class DeleteAds(graphene.Mutation):
     class Arguments:
         pass
@@ -84,4 +108,5 @@ class DeleteAds(graphene.Mutation):
 
 class Mutation(graphene.ObjectType):
     add_ads = AddAds.Field()
+    set_ads = SetAds.Field()
     delete_ads = DeleteAds.Field()

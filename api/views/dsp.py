@@ -8,8 +8,7 @@ BATCH_SIZE = 1000
 dsp_app = Blueprint('dsp_app', __name__)
 
 
-def test_ad(bid_floor):
-    bid_floor = int(bid_floor)
+def test_ad():
     q = Ad.query.filter(Ad.status)
     bid_price = 0
     ads = []
@@ -20,7 +19,7 @@ def test_ad(bid_floor):
             'ad_id': ad.ad_id,
             'price': price
         }]
-        if price >= bid_floor and price > bid_price:
+        if price > bid_price:
             bid_price = price
             target_ad = ad
     if target_ad is None:
@@ -95,10 +94,7 @@ def delete_ads():
 
 @dsp_app.route('/test_dsp', methods=['POST'])
 def test_bw_dsp():
-    bid_floor = request.values.get('bid_floor')
-    if bid_floor is None or not bid_floor.isdigit():
-        abort(400)
-    return test_ad(bid_floor)
+    return test_ad()
 
 
 @dsp_app.route('/bw_dsp', methods=['POST'])
