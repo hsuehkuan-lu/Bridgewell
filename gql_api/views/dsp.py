@@ -41,7 +41,7 @@ class Query(graphene.ObjectType):
         def func():
             data = {'bid_floor': random.randint(1, 50)}
             r = requests.post(f'{API_URL}/bw_dsp', data=data)
-        return timeit.timeit(lambda: func(), number=num_test)
+        return timeit.timeit(lambda: func(), number=num_test) / num_test
 
 
 class AddAds(graphene.Mutation):

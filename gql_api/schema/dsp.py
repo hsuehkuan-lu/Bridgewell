@@ -8,6 +8,3 @@ class AdNode(SQLAlchemyObjectType):
         model = Ad
 
     ad_id = graphene.ID(required=True)
-
-
-
