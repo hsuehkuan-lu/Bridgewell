@@ -13,13 +13,12 @@ def gql_request():
         }
     }
     '''
-    v = {'bidFloor': random.randint(1, 200)}
+    v = {'bidFloor': random.randint(1, 50)}
     r = requests.post(f'{API_URL}/graphql', json={
         'query': q, 'variables': v
     })
     print(r)
-    if r.status_code == 200:
-        print(r.json())
+    print(r.json())
 
 
 def dsp_request():
