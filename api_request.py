@@ -4,6 +4,24 @@ import timeit
 from config import API_URL
 
 
+def gql_request():
+    q = '''
+    query bwDsp($bidFloor: Int!){
+        bwDsp(bidFloor: $bidFloor) {
+            adId
+            price
+        }
+    }
+    '''
+    v = {'bidFloor': random.randint(1, 200)}
+    r = requests.post(f'{API_URL}/graphql', json={
+        'query': q, 'variables': v
+    })
+    print(r)
+    if r.status_code == 200:
+        print(r.json())
+
+
 def dsp_request():
     data = {'bid_floor': random.randint(1, 200)}
     # print(data)
@@ -31,7 +49,8 @@ def timeit_dsp_request():
     print(f"Cost time in total {number} requests: {t}")
 
 
-timeit_dsp_request()
+gql_request()
+# timeit_dsp_request()
 # dsp_request()
 # delete_ad_request()
 # add_ad_request()
