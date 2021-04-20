@@ -10,7 +10,10 @@ dsp_app = Blueprint('dsp_app', __name__)
 
 def orm_select_ad(bid_floor):
     bid_floor = int(bid_floor)
-    q = Ad.query.filter(Ad.status)
+    q = Ad.query.filter(
+        Ad.status,
+        Ad.bid_count < Ad.max_bid_count
+    )
     bid_price = 0
     target_ad = None
     for ad in q.yield_per(BATCH_SIZE):
@@ -20,6 +23,10 @@ def orm_select_ad(bid_floor):
             target_ad = ad
     if target_ad is None:
         return {}, 204
+    db.session.query(Ad).filter(
+        Ad.ad_id == target_ad.ad_id
+    ).update({'bid_count': Ad.bid_count + 1})
+    db.session.commit()
     return jsonify({
         'price': bid_price,
         'ad_id': target_ad.ad_id
@@ -58,7 +65,8 @@ def add_ads(data_num):
     for _ in range(data_num):
         ads += [Ad(
             status=bool(random.getrandbits(1)),
-            bidding_cpm=random.randint(0, 10)
+            bidding_cpm=random.randint(0, 10),
+            max_bid_count=random.randint(1, 1000)
         )]
     db.session.add_all(ads)
     db.session.commit()

@@ -22,13 +22,13 @@ def gql_request():
 
 
 def dsp_request():
-    data = {'bid_floor': random.randint(1, 200)}
-    # print(data)
+    data = {'bid_floor': random.randint(1, 20)}
+    print(data)
     r = requests.post(f'{API_URL}/bw_dsp', data=data)
-    # print(r)
-    # print(r.status_code)
-    # if r.status_code == 200:
-    #     print(r.json())
+    print(r)
+    print(r.status_code)
+    if r.status_code == 200:
+        print(r.json())
 
 
 def add_ad_request():
@@ -48,8 +48,8 @@ def timeit_dsp_request():
     print(f"Cost time in total {number} requests: {t}")
 
 
-gql_request()
+# gql_request()
 # timeit_dsp_request()
-# dsp_request()
+dsp_request()
 # delete_ad_request()
 # add_ad_request()
